@@ -1,21 +1,21 @@
 # Markex
 
-**TODO: Add description**
+A small package for creating 2D markup. 
+Will be actively used in my projects. 
+If you also decided to use my tool, then feel free to send corrections and suggestions
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+This package [available in Hex](https://hex.pm/docs/publish) and can be installed
 by adding `markex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:markex, "~> 0.1.0"}
+    {:markex, "~> 1.0.0"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/markex](https://hexdocs.pm/markex).
+[Documentation on hex](https://hexdocs.pm/markex).
 
