@@ -6,7 +6,7 @@ If you also decided to use my tool, then feel free to send corrections and sugge
 
 ## Installation
 
-This package [available in Hex](https://hex.pm/docs/publish) and can be installed
+This package [available in Hex](https://hex.pm/packages/markex) and can be installed
 by adding `markex` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -17,5 +17,5 @@ def deps do
 end
 ```
 
-[Documentation on hex](https://hexdocs.pm/markex).
+[Documentation on hex](https://hexdocs.pm/markex/readme.html).
 

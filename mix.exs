@@ -10,8 +10,10 @@ defmodule Markex.MixProject do
       deps: deps(),
       source_url: "https://github.com/wmean-spec/markex",
 
+      description: "A small package for creating 2D markup.",
+
       package: [
-        name: "Markex",
+        name: "markex",
         licenses: ["MIT"],
         links: %{"GitHub" => "https://github.com/wmean-spec/markex"},
       ],
@@ -24,9 +26,7 @@ defmodule Markex.MixProject do
   end
 
   def application do
-    [
-      extra_applications: [:logger]
-    ]
+    []
   end
 
   defp deps do
