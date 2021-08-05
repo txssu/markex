@@ -17,5 +17,30 @@ def deps do
 end
 ```
 
+## Usage
+
+```elixir
+import Markex.Element.Operators
+alias Markex.Element
+
+text = Element.new("some text")
+space = Element.new(" ")
+hor_bar = Element.new("@", 11, 1)
+vert_bar = Element.new("@", 1, 5)
+
+
+vert_bar <|> (hor_bar <~> space <~> text <~> space <~> hor_bar) <|> vert_bar 
+|> Element.to_string()
+|> IO.puts()
+
+#   Result:
+#     @@@@@@@@@@@@@
+#     @           @
+#     @ some text @
+#     @           @
+#     @@@@@@@@@@@@@
+
+```
+
 [Documentation on hex](https://hexdocs.pm/markex/readme.html).
 
