@@ -12,7 +12,7 @@ by adding `markex` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:markex, "~> 1.0.0"}
+    {:markex, "~> 1.1.0"}
   ]
 end
 ```

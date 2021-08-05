@@ -123,15 +123,26 @@ defmodule Markex.Element do
         "  #   "
       ]
   """
-  @doc since: "1.0.0"
-  @spec wider(element, pos_integer()) :: element
-  def wider(element, n) do
+  @doc since: "1.1.0"
+  @spec wider(element, pos_integer(), :center | :left | :right) :: element
+  def wider(element, n, align \\ :center)
+  def wider(element, n, :center) do
     add_space = n - width(element)
     left = Integer.floor_div(add_space, 2)
 
     element
     |> Enum.map(&String.pad_leading(&1, width(element) + left))
     |> Enum.map(&String.pad_trailing(&1, n))
+  end
+
+  def wider(element, n, :left) do
+    element
+    |> Enum.map(&String.pad_trailing(&1, n))
+  end
+
+  def wider(element, n, :right) do
+    element
+    |> Enum.map(&String.pad_leading(&1, n))
   end
 
   @doc """
@@ -148,9 +159,10 @@ defmodule Markex.Element do
         " "
       ]
   """
-  @doc since: "1.0.0"
-  @spec higher(element, pos_integer()) :: element
-  def higher(element, n) do
+  @doc since: "1.1.0"
+  @spec higher(element, pos_integer(), :center | :top | :bottom) :: element
+  def higher(element, n, align \\ :center)
+  def higher(element, n, :center) do
     add_space = n - height(element)
     up = Integer.floor_div(add_space, 2)
     down = add_space - up
@@ -162,8 +174,29 @@ defmodule Markex.Element do
     |> Enum.concat(List.duplicate(blank, down))
   end
 
+  def higher(element, n, :top) do
+    add_space = n - height(element)
+
+    blank = String.duplicate(" ", width(element))
+
+    element
+    |> Enum.concat(List.duplicate(blank, add_space))
+  end
+
+  def higher(element, n, :bottom) do
+    add_space = n - height(element)
+
+    blank = String.duplicate(" ", width(element))
+
+    List.duplicate(blank, add_space)
+    |> Enum.concat(element)
+  end
+
   @doc """
   Positions `this` on top of `that`, makes the elements wider as needed
+
+  The `align` argument can be used to position the elements correctly relative
+  to each other and can be `:center`, `:left`, or `:right`.
 
   See also `Markex.Element.Operators.<~>/2` and `Markex.Element.wider/2`.
 
@@ -176,17 +209,20 @@ defmodule Markex.Element do
         "$$$"
       ]
   """
-  @doc since: "1.0.0"
-  @spec over(element, element) :: element
-  def over(this, that) do
+  @doc since: "1.1.0"
+  @spec over(element, element, :center | :left | :right) :: element
+  def over(this, that, align \\ :center) do
     w = max(width(this), width(that))
-    this = wider(this, w)
-    that = wider(that, w)
+    this = wider(this, w, align)
+    that = wider(that, w, align)
     Enum.concat(this, that)
   end
 
   @doc """
   Positions `this` to the left of `that`, makes the elements higher if needed
+
+  The `align` argument can be used to position the elements correctly relative
+  to each other and can be `:center`, `:top`, or `:bottom`.
 
   See also `Markex.Element.Operators.<|>/2` and `Markex.Element.higher/2`.
 
@@ -198,12 +234,12 @@ defmodule Markex.Element do
         " $$"
       ]
   """
-  @doc since: "1.0.0"
-  @spec beside(element, element) :: element
-  def beside(this, that) do
+  @doc since: "1.1.0"
+  @spec beside(element, element, :center | :top | :bottom) :: element
+  def beside(this, that, align \\ :center) do
     h = max(height(this), height(that))
-    this = higher(this, h)
-    that = higher(that, h)
+    this = higher(this, h, align)
+    that = higher(that, h, align)
 
     Enum.zip(this, that)
     |> Enum.map(fn {l1, l2} -> l1 <> l2 end)
