@@ -16,7 +16,7 @@ defmodule Markex.Element do
   ## Examples
 
       iex> Markex.Element.new("Hello, world!")
-      ["Hello, wordl!"]
+      ["Hello, world!"]
 
       iex> Markex.Element.new(["Hello, world!", "or something idk", "."])
       [
