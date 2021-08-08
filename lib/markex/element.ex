@@ -54,6 +54,10 @@ defmodule Markex.Element do
   """
   @doc since: "1.0.0"
   @spec new(String.t(), non_neg_integer(), non_neg_integer()) :: element
+  def new(_ch, 0, _h) do
+    []
+  end
+
   def new(ch, w, h) do
     ch
     |> String.duplicate(w)
