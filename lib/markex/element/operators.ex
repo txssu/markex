@@ -1,13 +1,13 @@
 defmodule Markex.Element.Operators do
   import Markex.Element, only: [over: 2, beside: 2]
 
-  @type element :: Markex.Element.element()
+  alias Markex.Element
 
   @moduledoc """
   Pretty operators for actions with elements
   """
 
-  @spec element <~> element :: element
+  @spec Element.t() <~> Element.t() :: Element.t()
   @doc """
   See `Markex.Element.over/2`
   """
@@ -15,7 +15,7 @@ defmodule Markex.Element.Operators do
     over(top, bottom)
   end
 
-  @spec element <|> element :: element
+  @spec Element.t() <|> Element.t() :: Element.t()
   @doc """
   See `Markex.Element.beside/2`
   """

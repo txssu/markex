@@ -4,7 +4,7 @@ defmodule Markex.MixProject do
   def project do
     [
       app: :markex,
-      version: "1.1.0",
+      version: "1.1.1",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -32,6 +32,7 @@ defmodule Markex.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
     ]
   end
 end

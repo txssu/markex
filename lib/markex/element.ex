@@ -3,10 +3,12 @@ defmodule Markex.Element do
   Creating and working with elements for 2D markup
   """
 
+  alias __MODULE__
+
   @typedoc """
   List of strings, where all string the same length
   """
-  @type element :: list(String.t())
+  @type t :: list(String.t())
 
   @doc """
   Creates new element using regular string or list of strings
@@ -26,13 +28,13 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.0.0"
-  @spec new(String.t()) :: element
+  @spec new(String.t()) :: Element.t()
   def new(content) when is_binary(content) do
     [content]
   end
 
   @doc since: "1.0.0"
-  @spec new(list(String.t())) :: element
+  @spec new(list(String.t())) :: Element.t()
   def new(content) when is_list(content) do
     width = Enum.reduce(content, 0, &max(String.length(&1), &2))
     Enum.map(content, &String.pad_trailing(&1, width))
@@ -53,7 +55,7 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.0.0"
-  @spec new(String.t(), non_neg_integer(), non_neg_integer()) :: element
+  @spec new(String.t(), non_neg_integer(), non_neg_integer()) :: Element.t()
   def new(_ch, 0, _h) do
     []
   end
@@ -72,7 +74,7 @@ defmodule Markex.Element do
       "##\\n##"
   """
   @doc since: "1.0.0"
-  @spec to_string(element) :: String.t()
+  @spec to_string(Element.t()) :: String.t()
   def to_string(element) do
     Enum.join(element, "\n")
   end
@@ -83,7 +85,7 @@ defmodule Markex.Element do
   Also see `Markex.Element.size/1`
   """
   @doc since: "1.0.0"
-  @spec height(element) :: non_neg_integer()
+  @spec height(Element.t()) :: non_neg_integer()
   def height(element) do
     length(element)
   end
@@ -94,7 +96,7 @@ defmodule Markex.Element do
   Also see `Markex.Element.size/1`
   """
   @doc since: "1.0.0"
-  @spec width(element) :: non_neg_integer()
+  @spec width(Element.t()) :: non_neg_integer()
   def width(element) do
     if height(element) != 0 do
       String.length(List.first(element))
@@ -113,7 +115,7 @@ defmodule Markex.Element do
       {4, 5}
   """
   @doc since: "1.0.0"
-  @spec size(element) :: {non_neg_integer(), non_neg_integer()}
+  @spec size(Element.t()) :: {non_neg_integer(), non_neg_integer()}
   def size(element) do
     {width(element), height(element)}
   end
@@ -128,7 +130,7 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.1.0"
-  @spec wider(element, pos_integer(), :center | :left | :right) :: element
+  @spec wider(Element.t(), pos_integer(), :center | :left | :right) :: Element.t()
   def wider(element, n, align \\ :center)
   def wider(element, n, :center) do
     add_space = n - width(element)
@@ -164,7 +166,7 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.1.0"
-  @spec higher(element, pos_integer(), :center | :top | :bottom) :: element
+  @spec higher(Element.t(), pos_integer(), :center | :top | :bottom) :: Element.t()
   def higher(element, n, align \\ :center)
   def higher(element, n, :center) do
     add_space = n - height(element)
@@ -214,7 +216,7 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.1.0"
-  @spec over(element, element, :center | :left | :right) :: element
+  @spec over(Element.t(), Element.t(), :center | :left | :right) :: Element.t()
   def over(this, that, align \\ :center) do
     w = max(width(this), width(that))
     this = wider(this, w, align)
@@ -239,7 +241,7 @@ defmodule Markex.Element do
       ]
   """
   @doc since: "1.1.0"
-  @spec beside(element, element, :center | :top | :bottom) :: element
+  @spec beside(Element.t(), Element.t(), :center | :top | :bottom) :: Element.t()
   def beside(this, that, align \\ :center) do
     h = max(height(this), height(that))
     this = higher(this, h, align)
